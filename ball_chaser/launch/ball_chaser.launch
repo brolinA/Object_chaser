@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<launch>
+  <!-- Ball Chaser node -->
+  <node name="drive_robot" type="drive_robot" pkg="ball_chaser" />
+  
+  <!-- Image processing node -->
+  <node name="process_image" type="process_image" pkg="ball_chaser" />
+</launch>
