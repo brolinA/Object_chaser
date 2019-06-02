@@ -1,11 +1,5 @@
-#include "ros/ros.h"
-#include <sensor_msgs/Image.h>
-#include "ball_chaser/DriveToTarget.h"
-#include <string>
+#include "ball_chaser/image_process.h"
 
-ros::Subscriber image_sub_;
-ros::ServiceClient drive_client;
-char pos;
 
 /*
 
@@ -30,7 +24,14 @@ Depending on where the first white pixle lies, the robot moves either left, righ
 */
 
 
-void move_robot()
+image_process::image_process()
+{
+        image_sub_ = nh_->subscribe("/front_camera/rgb/image_raw",10, &image_process::image_process_callback,this);
+
+        drive_client = nh_->serviceClient<ball_chaser::DriveToTarget>("/command_robot");
+
+}
+void image_process::move_robot()
 {
 	
 	ball_chaser::DriveToTarget srv;
@@ -68,7 +69,7 @@ void move_robot()
 
 }
 
-void image_process_callback(const sensor_msgs::Image img)
+void image_process::image_process_callback(const sensor_msgs::Image img)
 {
 
 	int column;
@@ -96,18 +97,14 @@ void image_process_callback(const sensor_msgs::Image img)
 
 	}
 
-	move_robot();
+	image_process::move_robot();
 }
 
 
 int main (int argc, char** argv)
 {
 	ros::init (argc,argv,"process_image");
-	ros::NodeHandle nh;
 
-	image_sub_ = nh.subscribe("/front_camera/rgb/image_raw",10, image_process_callback);
-
-	drive_client = nh.serviceClient<ball_chaser::DriveToTarget>("/command_robot");
 
 	ros::spin();
 
