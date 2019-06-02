@@ -29,8 +29,8 @@ Launch the world using
 	`roslaunch robot_model world.launch`
 
 **Some useful links**
-	- [Differential drive plug-in](https://bitbucket.org/osrf/gazebo/src/afe08834571835008fa7419f1feba5b7f89b9d62/plugins/DiffDrivePlugin.cc?at=gazebo7&fileviewer=file-view-default)
-	- [Camera plug-in](https://bitbucket.org/osrf/gazebo/src/afe08834571835008fa7419f1feba5b7f89b9d62/plugins/CameraPlugin.cc?at=gazebo7)
+ - [Differential drive plug-in](https://bitbucket.org/osrf/gazebo/src/afe08834571835008fa7419f1feba5b7f89b9d62/plugins/DiffDrivePlugin.cc?at=gazebo7&fileviewer=file-view-default)
+ - [Camera plug-in](https://bitbucket.org/osrf/gazebo/src/afe08834571835008fa7419f1feba5b7f89b9d62/plugins/CameraPlugin.cc?at=gazebo7)
 
 ### ball_chaser directory
 
