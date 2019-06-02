@@ -1,6 +1,5 @@
 #include "ball_chaser/image_process.h"
 
-
 /*
 
 Short hands used in this code
@@ -26,8 +25,8 @@ Depending on where the first white pixle lies, the robot moves either left, righ
 
 image_process::image_process()
 {
+	nh_ = new ros::NodeHandle("~");
         image_sub_ = nh_->subscribe("/front_camera/rgb/image_raw",10, &image_process::image_process_callback,this);
-
         drive_client = nh_->serviceClient<ball_chaser::DriveToTarget>("/command_robot");
 
 }
@@ -74,6 +73,7 @@ void image_process::image_process_callback(const sensor_msgs::Image img)
 
 	int column;
 	int white_pixel = 255;
+        ROS_INFO("Processing Image");
 
 	pos = 'N';
 
@@ -105,8 +105,14 @@ int main (int argc, char** argv)
 {
 	ros::init (argc,argv,"process_image");
 
+	image_process image_processor;	
+	ros::Rate r(20);
 
-	ros::spin();
+   	while(ros::ok())
+   	{
+     	ros::spinOnce();
+     	r.sleep();
+   	}
 
 	return 0;
 

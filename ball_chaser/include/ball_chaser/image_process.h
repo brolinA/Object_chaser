@@ -5,12 +5,13 @@
 
 class image_process
 {
- public:
+ private:
   ros::NodeHandle* nh_;
   ros::Subscriber image_sub_;
   ros::ServiceClient drive_client;
   char pos;
-
+  
+  public:
   image_process();
   void move_robot();
   void image_process_callback(const sensor_msgs::Image img);

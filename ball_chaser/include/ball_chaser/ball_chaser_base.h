@@ -11,7 +11,9 @@ class drive_bot
   
  public:
   drive_bot();
+  bool handle_drive_request(ball_chaser::DriveToTarget::Request& req, ball_chaser::DriveToTarget::Response& res);
 
+  private:
   ros::Publisher motor_command_publisher;
   ros::ServiceServer command_robot;
 
@@ -19,7 +21,6 @@ class drive_bot
 
   ros::NodeHandle* nh_;
 
-  bool handle_drive_request(ball_chaser::DriveToTarget::Request& req, ball_chaser::DriveToTarget::Response& res);
 
 
 };
