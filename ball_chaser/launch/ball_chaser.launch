@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 
 <launch>
+  
+  <rosparam file="$(find ball_chaser)/params/velocity_params.yaml" command="load" ns="/"/>
   <!-- Ball Chaser node -->
   <node name="drive_robot" type="drive_robot" pkg="ball_chaser" output="screen"/>
   

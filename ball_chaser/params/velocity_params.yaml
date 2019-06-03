@@ -1,0 +1,10 @@
+straight_velocity:
+  linear: 1.0
+
+left_turn_velocity:
+  linear: 0.4
+  angular: 0.3
+
+right_turn_velocity:
+  linear: 0.4
+  angular: -0.3

@@ -22,6 +22,8 @@ Depending on where the first white pixle lies, the robot moves either left, righ
 
 */
 
+double st_lin,left_lin,left_ang,right_lin,right_ang;
+
 
 image_process::image_process()
 {
@@ -38,19 +40,19 @@ void image_process::move_robot()
 	switch(pos)
 	{
 		case 'L':
-			srv.request.linear_x = 0.3;
-			srv.request.angular_z = 0.3;
+			srv.request.linear_x = left_lin;
+			srv.request.angular_z = left_ang;
 			ROS_WARN("Moving Left");
 			break;
 
 		case 'R':
-			srv.request.linear_x = 0.3;
-			srv.request.angular_z = -0.3;
+			srv.request.linear_x = right_lin;
+			srv.request.angular_z = right_ang;
 			ROS_WARN("Moving Right");
 			break;
 
 		case 'S':
-			srv.request.linear_x = 1.0;
+			srv.request.linear_x = st_lin;
 			srv.request.angular_z = 0.0;
 			ROS_WARN("Moving Straight");
 			break;
@@ -100,13 +102,32 @@ void image_process::image_process_callback(const sensor_msgs::Image img)
 	image_process::move_robot();
 }
 
+bool load_params(ros::NodeHandle *nh)
+{
+  bool param_loaded = nh->getParam("/straight_velocity/linear", st_lin);
+  param_loaded = param_loaded && nh->getParam("/left_turn_velocity/linear", left_lin);
+  param_loaded = param_loaded && nh->getParam("/left_turn_velocity/angular", left_ang);
+  param_loaded = param_loaded && nh->getParam("/right_turn_velocity/linear", right_lin);
+  param_loaded = param_loaded && nh->getParam("/right_turn_velocity/angular", right_ang);
+  
+  return param_loaded;
+}
+
 
 int main (int argc, char** argv)
 {
 	ros::init (argc,argv,"process_image");
-
+	ros::NodeHandle nh("~");
 	image_process image_processor;	
 	ros::Rate r(20);
+
+	bool params_loaded = load_params(&nh);
+	if (!params_loaded)
+	{
+	    // shutdowns the code if params not loaded properly
+	    ROS_ERROR("Check Velocity Params!!!");
+	    ros::shutdown();
+	}
 
    	while(ros::ok())
    	{
