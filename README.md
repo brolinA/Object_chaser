@@ -13,7 +13,7 @@ You can download the package by typing the following command in your terminal
 
 ```
 $ mkdir object_chaser
-$ cd custom_enviroment
+$ cd object_chaser
 $ git init
 $ git clone https://github.com/brolinA/Object_chaser.git
 ```
